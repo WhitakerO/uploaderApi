@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-    origin: ['http://localhost:3000', 'http://192.168.100.7:3000', 'https://cursando.app', 'https://www.cursando.app']
+    origin: ['*']
 }));
 
 app.use('/api/upload', uploadRoutes); // Rutas para cursos
