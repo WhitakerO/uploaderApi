@@ -6,7 +6,7 @@ const cors = require('cors');
 const uploadRoutes = require('./src/routes/uploadRoutes');
 
 app.get('/', (req, res) => {
-    res.send('Hola mundo!');
+    res.send('Hola mundo!!');
 });
 app.use('/api/upload', uploadRoutes); // Rutas para cursos
 
