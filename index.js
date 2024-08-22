@@ -16,6 +16,7 @@ app.use(cors({
 }));
 
 app.post('/webhook', (req, res) => {
+    console.log('Webhook received:', req.body);
     // Solo aceptar el webhook si es un push a la rama principal
     if (req.body.ref === 'refs/heads/main') {
         console.log('Nuevo push detectado en la rama principal. Actualizando servidor...');
