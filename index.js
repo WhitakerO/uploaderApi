@@ -16,9 +16,8 @@ app.use(cors({
 }));
 
 app.post('/webhook', (req, res) => {
-    console.log('Webhook received:', req.body);
     // Solo aceptar el webhook si es un push a la rama principal
-    if (req.body.ref === 'refs/heads/main') {
+    if (req.body.ref === 'refs/heads/main' || req.body.ref === 'refs/heads/master') {
         console.log('Nuevo push detectado en la rama principal. Actualizando servidor...');
         // Comandos para hacer pull, instalar dependencias y reiniciar el servidor
         exec('git pull && npm install && pm2 restart all', (err, stdout, stderr) => {
