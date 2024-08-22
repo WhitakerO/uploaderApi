@@ -5,17 +5,19 @@ const { exec } = require('child_process');
 const cors = require('cors');
 const uploadRoutes = require('./src/routes/uploadRoutes');
 
-
-app.use(express.json());
-
 app.get('/', (req, res) => {
-    res.send('Hola mundo!!1');
+    res.send('Hola mundo!');
 });
 app.use('/api/upload', uploadRoutes); // Rutas para cursos
+
 app.use(cors({
-    origin: '*', // Permite todas las solicitudes de cualquier dominio
-    methods: 'POST, GET, PUT', // Permite solo métodos POST
-}));
+    origin: '*', // Permite solo este origen
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+  }));
+  
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
 
 app.post('/webhook', (req, res) => {
     // Solo aceptar el webhook si es un push a la rama principal
