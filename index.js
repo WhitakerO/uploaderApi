@@ -10,6 +10,12 @@ const app = express();
 app.use(express.json({ limit: '10gb' })); // Ajusta según el tamaño esperado de archivos
 app.use(express.urlencoded({ extended: true, limit: '10gb' })); // Ajusta según el tamaño esperado de archivos
 
+app.use((req, res, next) => {
+    req.setTimeout(7200000); // 2 horas
+    res.setTimeout(7200000); // 2 horas
+    next();
+});
+
 // Configura CORS
 app.use(cors({
     origin: '*', // Permite todos los orígenes. Cambia según sea necesario para mayor seguridad
