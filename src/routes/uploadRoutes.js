@@ -3,7 +3,6 @@ const UploadController = require('../controllers/uploadController');
 const router = express.Router();
 const multer = require('multer');
 const verifyTokens = require('../middlewares/verifyTokens');
-const checkRole = require('../middlewares/checkRole');
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
