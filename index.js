@@ -20,7 +20,7 @@ app.use((req, res, next) => {
     next();
 });
 const startServer = async () => {
-    const PORT = process.env.PORT || 3001;
+    const PORT = process.env.PORT || 3000;
     try {
         app.listen(PORT, () => {
             console.log(`Servidor corriendo en el puerto ${PORT}`);
