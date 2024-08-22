@@ -11,13 +11,6 @@ class UploadController {
             res.status(500).send(`Error uploading the video: ${error}`);
         }
     };
-    static async uploadGet(req, res) {
-        try {
-            res.send('Upload good');
-        } catch (error) {
-            res.send('Hola con error');
-        }
-    };
     static async getSignedUrl(req, res) {
         try {
             const signedUrl = await UploadService.getSignedUrl(req.query.videoUrl);

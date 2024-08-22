@@ -1,30 +1,34 @@
 const express = require('express');
-const app = express();
-const PORT = process.env.PORT || 3000;
-const { exec } = require('child_process');
 const cors = require('cors');
+
 const uploadRoutes = require('./src/routes/uploadRoutes');
 
-app.get('/', (req, res) => {
-    res.send('Hola mundo!');
-});
-app.use('/api/upload', uploadRoutes); // Rutas para cursos
+const app = express();
 
-app.use(cors({
-    origin: '*', // Permite solo este origen
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
-app.options('*', cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors({
+    origin: ['http://localhost:3000', 'http://192.168.100.7:3000', 'https://cursando.app', 'https://www.cursando.app']
+}));
+
+app.use('/api/upload', uploadRoutes); // Rutas para cursos
+
 
 app.use((req, res, next) => {
     res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
     res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
     next();
 });
-
+const startServer = async () => {
+    const PORT = process.env.PORT || 3001;
+    try {
+        app.listen(PORT, () => {
+            console.log(`Servidor corriendo en el puerto ${PORT}`);
+        });
+    } catch (error) {
+        console.error('Error al sincronizar con la base de datos:', error);
+    }
+}
 app.post('/webhook', (req, res) => {
     // Solo aceptar el webhook si es un push a la rama principal
     if (req.body.ref === 'refs/heads/main' || req.body.ref === 'refs/heads/master') {
@@ -41,8 +45,5 @@ app.post('/webhook', (req, res) => {
     } else {
         res.sendStatus(200);
     }
-});
-
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+})
+startServer();

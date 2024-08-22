@@ -8,7 +8,6 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 router.get('/signedclass', verifyTokens, UploadController.getSignedUrl);
-router.post('/a', verifyTokens, UploadController.uploadGet);
 router.post('/', upload.single('file'), verifyTokens, UploadController.uploadVideo);
 
 
