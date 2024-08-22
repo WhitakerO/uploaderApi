@@ -9,6 +9,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "proxy": "https://uploader.cursando.app",
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "aws-sdk": "^2.1680.0",
