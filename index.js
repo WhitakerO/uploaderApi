@@ -7,7 +7,7 @@ const cors = require('cors');
 app.use(express.json());
 
 app.get('/', (req, res) => {
-    res.send('Hola mundo!!');
+    res.send('Hola mundo!!1');
 });
 
 app.use(cors({
