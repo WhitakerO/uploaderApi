@@ -3,13 +3,15 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const { exec } = require('child_process');
 const cors = require('cors');
+const uploadRoutes = require('./src/routes/uploadRoutes');
+
 
 app.use(express.json());
 
 app.get('/', (req, res) => {
     res.send('Hola mundo!!1');
 });
-
+app.use('/api/upload', uploadRoutes); // Rutas para cursos
 app.use(cors({
     origin: '*', // Permite todas las solicitudes de cualquier dominio
     methods: 'POST, GET, PUT', // Permite solo métodos POST
@@ -34,5 +36,5 @@ app.post('/webhook', (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });
