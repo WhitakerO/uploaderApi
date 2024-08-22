@@ -6,13 +6,17 @@ const uploadRoutes = require('./src/routes/uploadRoutes');
 
 const app = express();
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Configura los límites de tamaño de las solicitudes
+app.use(express.json({ limit: '10gb' })); // Ajusta según el tamaño esperado de archivos
+app.use(express.urlencoded({ extended: true, limit: '10gb' })); // Ajusta según el tamaño esperado de archivos
+
+// Configura CORS
 app.use(cors({
-    origin: ['*']
+    origin: '*', // Permite todos los orígenes. Cambia según sea necesario para mayor seguridad
 }));
 
-app.use('/api/upload', uploadRoutes); // Rutas para cursos
+// Rutas para cursos
+app.use('/api/upload', uploadRoutes);
 
 app.use((req, res, next) => {
     res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
@@ -23,9 +27,12 @@ app.use((req, res, next) => {
 const startServer = async () => {
     const PORT = process.env.PORT || 3000;
     try {
-        app.listen(PORT, () => {
+        const server = app.listen(PORT, () => {
             console.log(`Servidor corriendo en el puerto ${PORT}`);
         });
+
+        // Configura el tiempo de espera del servidor
+        server.setTimeout(6000000); // 100 minutos en milisegundos
     } catch (error) {
         console.error('Error al sincronizar con la base de datos:', error);
     }
