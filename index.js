@@ -13,10 +13,16 @@ app.use('/api/upload', uploadRoutes); // Rutas para cursos
 app.use(cors({
     origin: '*', // Permite solo este origen
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  }));
-  
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: true }));
+}));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use((req, res, next) => {
+    res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+    res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
+    next();
+});
 
 app.post('/webhook', (req, res) => {
     // Solo aceptar el webhook si es un push a la rama principal
