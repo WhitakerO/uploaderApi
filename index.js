@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { exec } = require('child_process');
-
+const { exec } = require('child_process'); // Importa exec aquí
 
 const uploadRoutes = require('./src/routes/uploadRoutes');
 
@@ -15,12 +14,12 @@ app.use(cors({
 
 app.use('/api/upload', uploadRoutes); // Rutas para cursos
 
-
 app.use((req, res, next) => {
     res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
     res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
     next();
 });
+
 const startServer = async () => {
     const PORT = process.env.PORT || 3000;
     try {
@@ -30,7 +29,8 @@ const startServer = async () => {
     } catch (error) {
         console.error('Error al sincronizar con la base de datos:', error);
     }
-}
+};
+
 app.post('/webhook', (req, res) => {
     // Solo aceptar el webhook si es un push a la rama principal
     if (req.body.ref === 'refs/heads/main' || req.body.ref === 'refs/heads/master') {
@@ -47,5 +47,6 @@ app.post('/webhook', (req, res) => {
     } else {
         res.sendStatus(200);
     }
-})
+});
+
 startServer();
