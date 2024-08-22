@@ -1,12 +1,19 @@
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
+const { exec } = require('child_process');
+const cors = require('cors');
 
 app.use(express.json());
 
 app.get('/', (req, res) => {
     res.send('Hola mundo!');
 });
+
+app.use(cors({
+    origin: '*', // Permite todas las solicitudes de cualquier dominio
+    methods: 'POST, GET, PUT', // Permite solo métodos POST
+}));
 
 app.post('/webhook', (req, res) => {
     // Solo aceptar el webhook si es un push a la rama principal
