@@ -14,7 +14,7 @@ app.use(cors({
     origin: '*', // Permite solo este origen
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
 }));
-
+app.options('*', cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

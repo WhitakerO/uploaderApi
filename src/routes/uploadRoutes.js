@@ -9,6 +9,6 @@ const upload = multer({ storage: storage });
 
 router.get('/signedclass', verifyTokens, UploadController.getSignedUrl);
 router.post('/', upload.single('file'), verifyTokens, UploadController.uploadVideo);
-router.get('/', verifyTokens, UploadController.uploadGet);
+router.post('/', verifyTokens, UploadController.uploadGet);
 
 module.exports = router;
