@@ -80,7 +80,28 @@ class UploadService {
 
     static async uploadToS3(file, userId) {
         // Lista de extensiones permitidas
-        const allowedExtensions = ['.pdf', '.mp4', '.jpg', '.png', '.jpeg', '.webp', '.html'];
+        const allowedExtensions = [
+            // Documentos y Presentaciones
+            '.pdf', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx', '.html', '.txt', '.csv',
+            
+            // Imágenes y Gráficos
+            '.jpg', '.jpeg', '.png', '.gif', '.svg', '.webp', '.bmp', '.tiff', '.tif',
+            
+            // Formatos RAW
+            '.heic', '.dng', '.cr2', '.nef', '.arw', '.orf', '.rw2',
+            
+            // Vídeo
+            '.mp4', '.mov', '.avi', '.mkv',
+            
+            // Audio
+            '.mp3', '.wav', '.aac',
+            
+            // Archivos Comprimidos
+            '.zip', '.rar',
+            
+            // Ebooks
+            '.epub', '.mobi'
+          ];
 
         // Obtener la extensión del archivo
         const fileExtension = path.extname(file.originalname).toLowerCase();
